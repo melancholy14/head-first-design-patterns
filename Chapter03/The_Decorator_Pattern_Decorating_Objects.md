@@ -115,7 +115,7 @@ codes 폴더 안의 코드 참고
 ### 데코레이터가 적용된 예: 자바 I/O
 [java.io](https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html)는 데코레이터 패턴을 바탕으로 만들어졌습니다. 자세한 내용은 [여기](https://codingnotes.tistory.com/238?category=968843#%EB%-D%B-%EC%BD%--%EB%A-%--%EC%-D%B-%ED%--%B-%EC%-D%--%--%EC%A-%--%EC%-A%A-%EB%--%-C%--%EC%--%--%--%-A%--%EC%-E%--%EB%B-%--%--I%-FO)를 참고해주세요.
 
-### 핵심정리
+### 핵심 정리
 - 디자인의 유연성 면에서 보면 상속으로 확장하는 일은 별로 좋은 선택이 아닙니다.
 - 기존 코드 수정 없이 행동을 확장해야 하는 상황도 있습니다.
 - 구성과 위임으로 실행 중에 새로운 행동을 추가할 수 있습니다.
