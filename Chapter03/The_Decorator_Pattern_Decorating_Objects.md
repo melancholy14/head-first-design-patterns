@@ -89,25 +89,25 @@ public class DarkRoast extends Beverage {
 객체에 추가 요소를 동적으로 더할 수 있습니다. 데코레이터를 사용하면 서브클래스를 만들 때보다 훨씬 유연하게 기능을 확장할 수 있습니다.
 ```
 1. Component: 추상 슈퍼 클래스
-  - methodA(), methodB()와 같이 추상 메소드 가집니다.
+    - methodA(), methodB()와 같이 추상 메소드 가집니다.
 2. ConcreteComponent: Component 구현 클래스
-  - 새로운 행동을 동적으로 추가할 수 있어요.
+    - 새로운 행동을 동적으로 추가할 수 있어요.
 3. Decorator: Component 구현 클래스 이자 Component 객체를 가지고 있습니다.
-  - 자신이 장식할 구성 요소와 같은 인터페이스 또는 추상 클래스를 구현합니다.
-  - Component wrappedObj: 구성 요소의 레퍼런스를 포함한 인스턴스 변수가 있어요.
+    - 자신이 장식할 구성 요소와 같은 인터페이스 또는 추상 클래스를 구현합니다.
+    - Component wrappedObj: 구성 요소의 레퍼런스를 포함한 인스턴스 변수가 있어요.
 4. ConcreteDecorator: Decorator 구현 클래스
-  - 데코레이터가 감싸고 있는 Component 객체용 인스턴스 변수가 있습니다.
-  - Decorator는 Component의 상태를 확장할 수 있습니다.
+    - 데코레이터가 감싸고 있는 Component 객체용 인스턴스 변수가 있습니다.
+    - Decorator는 Component의 상태를 확장할 수 있습니다.
 
 ### Beverage 클래스 장식하기
 1. Beverage: 추상 슈퍼 클래스
-  - description 변수와 getDescription(), cost()와 같이 추상 메소드 가집니다.
+    - description 변수와 getDescription(), cost()와 같이 추상 메소드 가집니다.
 2. HouseBlend, DarkRoast, Espresso, Decaf: Beverage 구현 클래스
-  - 커피 종류마다 구성 요소를 나타내는 구상 클래스를 하나씩 만들었습니다.
+    - 커피 종류마다 구성 요소를 나타내는 구상 클래스를 하나씩 만들었습니다.
 3. CondimentDecorator: Beverage 구현 클래스 이자 Beverage 객체를 가지고 있습니다.
 4. Milk, Mocha, Soy, Whip: CondimentDecorator 구현 클래스
-  - 각각의 첨가물을 나타내는 데코레이터.
-  - cost(), getDescription()도 구현해야 합니다.
+    - 각각의 첨가물을 나타내는 데코레이터.
+    - cost(), getDescription()도 구현해야 합니다.
 
 ### 커피 주문 시스템 만들기
 codes 폴더 안의 코드 참고
