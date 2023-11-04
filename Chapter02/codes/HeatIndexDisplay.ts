@@ -13,8 +13,8 @@ class HeatIndexDisplay implements Observer, DisplayElement {
         weatherData.registerObserver(this);
     }
 
-    update(temperature: number, humidity: number) {
-        this.heatIndex = this.computeHeatIndex(temperature, humidity);
+    update() {
+        this.heatIndex = this.computeHeatIndex(this.weatherData.getTemperate(), this.weatherData.getHumidity());
 
         this.display();
     }

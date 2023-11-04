@@ -13,9 +13,9 @@ class CurrentConditionDisplay implements Observer, DisplayElement {
         weatherData.registerObserver(this);
     }
 
-    update(temperature: number, humidity: number) {
-        this.temperature = temperature;
-        this.humidity = humidity;
+    update() {
+        this.temperature = this.weatherData.getTemperate();
+        this.humidity = this.weatherData.getHumidity();
 
         this.display();
     }

@@ -17,7 +17,9 @@ class StatisticsDisplay implements Observer, DisplayElement {
         weatherData.registerObserver(this);
     }
 
-    update(temperature: number) {
+    update() {
+        const temperature = this.weatherData.getTemperate();
+
         if (this.maxTemp < temperature) {
             this.maxTemp = temperature;
         }

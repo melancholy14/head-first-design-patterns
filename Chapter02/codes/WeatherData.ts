@@ -3,12 +3,25 @@ import Subject from "./Subject";
 
 class WeatherData implements Subject {
     observers: Observer[] = [];
+
     temperature: number = 0;
     humidity: number = 0;
     pressure: number = 0;
 
     constructor() {
         this.observers = [];
+    }
+
+    getTemperate() {
+        return this.temperature;
+    }
+
+    getHumidity() {
+        return this.humidity;
+    }
+
+    getPressure() {
+        return this.pressure;
     }
 
     registerObserver(o: Observer){
@@ -21,7 +34,7 @@ class WeatherData implements Subject {
 
     notifyObservers(){
         this.observers.forEach(o => {
-            o.update(this.temperature, this.humidity, this.pressure);
+            o.update();
         });
     }
 
