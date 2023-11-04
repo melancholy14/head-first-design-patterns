@@ -48,7 +48,7 @@ public class DarkRoast extends Beverage {
 }
 ```
 
-<b>쓰면서 제대로 공부하기 (3)</b><br />
+<b>쓰면서 제대로 공부하기 (2)</b><br />
 이 프로젝트에서 변경되었을 때 디자인에 영향을 미칠 만한 요소를 적어 봅시다(정답은 없습니다. 자유롭게 적어 보세요).
 - 첨가물 가격이 바뀔 때마다 기존 코드를 수정해야 합니다.
 - 첨가물의 종류가 많아지면 새로운 메소드를 추가해야 하고, 슈퍼클래스의 cost() 메소드로 고쳐야 합니다.
@@ -110,7 +110,31 @@ public class DarkRoast extends Beverage {
     - cost(), getDescription()도 구현해야 합니다.
 
 ### 커피 주문 시스템 만들기
-codes 폴더 안의 코드 참고
+[codes](./codes/) 폴더 안의 코드 참고
+
+<b>쓰면서 제대로 공부하기 (3)</b><br />
+스타버즈 커피는 톨(소), 그란데(중), 벤티(대) 사이즈 개념을 도입하기로 했습니다. 스타버즈 커피는 이런 변화가 커피 클래스 전체에 영향을 미친다고 간주하고 Beverage 클래스에 setSize()와 getSize()라는 2개의 메소드를 추가했습니다. 그리고 사이즈에 따라 첨가물 가격도 다르게 받을 계획입니다.<br />
+이런 변경 사항을 처리하려면 데코레이터 클래스를 어떻게 고쳐야 할까요?
+```
+public abstract class Beverage {
+  public enum Size { TALL, GRANDE, VENTI };
+  Size size = Size.TALL;
+
+  ...
+
+  public void setSize(Size size) {
+    this.size = size;
+  }
+
+  public size getSize() {
+    return this.size;
+  }
+  ...
+}
+```
+
+<b>나의 의견</b><br />
+각 beverage, condiment의 cost 계산 시, getSize()를 이용하여 가격 분기처리 계산
 
 ### 데코레이터가 적용된 예: 자바 I/O
 [java.io](https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html)는 데코레이터 패턴을 바탕으로 만들어졌습니다. 자세한 내용은 [여기](https://codingnotes.tistory.com/238?category=968843#%EB%-D%B-%EC%BD%--%EB%A-%--%EC%-D%B-%ED%--%B-%EC%-D%--%--%EC%A-%--%EC%-A%A-%EB%--%-C%--%EC%--%--%--%-A%--%EC%-E%--%EB%B-%--%--I%-FO)를 참고해주세요.

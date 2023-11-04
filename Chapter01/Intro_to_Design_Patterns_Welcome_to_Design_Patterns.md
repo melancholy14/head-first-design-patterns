@@ -75,7 +75,7 @@ A. FlyBehavior 인터페이스를 구현하는 FlyWithRocket 클래스를 추가
 A. 다른 새나 오리 모형 슈퍼 클래스에서 Quack 인터페이스를 활용할 수 있지 않을까?
 
 ### 오리 코드 테스트
-codes 폴더 안의 코드 참고
+[codes](./codes/) 폴더 안의 코드 참고
 
 ### 두 클래스를 합치는 방법
 "A에는 B가 있다." 관계를 생각해 봅시다. 각 오리에는 FlyBehavior와 QuackBehavior가 있으며, 각각 나는 행동과 꽥꽥거리는 행동을 위임 받습니다.<br />
