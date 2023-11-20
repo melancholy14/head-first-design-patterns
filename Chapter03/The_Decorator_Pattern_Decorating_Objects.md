@@ -9,7 +9,7 @@
 현재: Beverage라는 추상 클래스를 만들고 모든 음료는 이 클래스의 서브클래스가 됩니다. 하지만 고객은 커피를 주문할 때 우유나 두유 등 옵션을 추가하죠. 결국, 클래스가 말 그대로 "폭발"...
 
 - 추상 클래스: Beverage
-  - 추상메소드: cost() -> 각 서브클래스에서 cost()를 재정의
+  - 추상메소드: cost() &rarr; 각 서브클래스에서 cost()를 재정의
 - 서브 클래스: HouseBlend, HouseBlendWithSteamedMilk, HouseBlendWithSteamedMilkAndMocha, HouseBlendWithSteamedMilkAndWhip, HouseBlendWithSoy, HouseBlendWithSoyAndMocha, etc ...
 
 #### 뇌 단련
