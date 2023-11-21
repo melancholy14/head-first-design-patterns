@@ -32,17 +32,25 @@
 요청 내역을 객체로 캡슐화해서 객체를 서로 다른 요청 내역에 따라 매개변수화할 수 있습니다. 이러면 요청을 큐에 저장하거나 로그로 기록하거나 작업 취소 기능을 사용할 수 있습니다.
 ```
 
+1. <<인터페이스>> Command: 모든 커맨드 객체에서 구현해야하는 인터페이스. 명령을 호출하는 execute()가 포함
+2. ConcreteCommand: Command 구현 클래스. execute()를 호출하여 리시버의 메소드를 호출할 수 있도록 연결.
+3. Receiver: 요구 사항을 수행할 때 특정 행동을 처리하는 객체
+4. Invoker: execute()를 호출하여 커맨드 객체에게 특정 작업을 수행하라 요구하는 객체
+5. Client: ConcreteCommand를 생성하고 Receiver를 설정하는 객체
+
+### 슬롯에 명령 할당하기
+
+[codes/RemoteLoader.ts](./codes/RemoteLoader.ts) 코드 참고
+
+#### 람다 표현식을 써서 고친 코드
+
+[codes/RemoteLoaderWithLambda.ts](./codes/RemoteLoaderWithLambda.ts) 코드 참고
+
+(Lambda 라기보단.. Arrow function으로 흉내내봤지만 커맨드 객체를 분리한 의미가 사라지는 것 같음..)
+
 <!-- 6. The Command Pattern: Encapsulating Invocation
 
-* 		The Command Pattern defined
-* 		The Command Pattern defined: the class diagram
-* 		Assigning Commands to slots
-* 		Implementing the Remote Control
-* 		Implementing the Commands
-* 		Putting the Remote Control through its paces
-    * 		Now, let’s check out the execution of our remote control test...
-* 		Time to write that documentation...
-* 		What are we doing?
+
 * 		Time to QA that Undo button!
 * 		Using state to implement Undo
 * 		Adding Undo to the CeilingFan commands
