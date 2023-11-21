@@ -1,7 +1,7 @@
 import Command from "./Command";
 import GarageDoor from "./GarageDoor";
 
-class GarageDoorOpenCommand implements Command {
+class GarageDoorDownCommand implements Command {
     garageDoor?: GarageDoor;
 
     constructor(garageDoor: GarageDoor){
@@ -9,8 +9,8 @@ class GarageDoorOpenCommand implements Command {
     }
 
     execute() {
-        this.garageDoor?.up();
+        this.garageDoor?.down();
     }
 }
 
-export default GarageDoorOpenCommand;
+export default GarageDoorDownCommand;

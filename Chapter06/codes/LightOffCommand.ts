@@ -1,7 +1,7 @@
 import Command from "./Command";
 import Light from "./Light";
 
-class LightOnCommand implements Command {
+class LightOffCommand implements Command {
     light?: Light;
     
     constructor(light: Light) {
@@ -9,8 +9,8 @@ class LightOnCommand implements Command {
     }
 
     execute() {
-        this.light?.on();
+        this.light?.off();
     }
 }
 
-export default LightOnCommand;
+export default LightOffCommand;

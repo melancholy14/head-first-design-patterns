@@ -1,7 +1,7 @@
 import Command from "./Command";
 
 class SimpleRemoteControl {
-    slot: Command | undefined = undefined;
+    slot?: Command;
 
     constructor() {}
 
