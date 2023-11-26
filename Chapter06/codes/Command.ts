@@ -1,5 +1,5 @@
 interface Command {
-    execute: () => void;
+    execute: VoidFunction;
 }
 
 export default Command;

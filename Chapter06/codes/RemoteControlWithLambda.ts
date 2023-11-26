@@ -1,12 +1,12 @@
 class RemoteControlWithLambda {
-    onCommands: (() => void)[] = [];
-    offCommands: (() => void)[] = [];
+    onCommands: VoidFunction[] = [];
+    offCommands: VoidFunction[] = [];
     
     private slotIndexes = [0, 1, 2, 3, 4, 5, 6];
 
     constructor() {}
 
-    setCommand(slot: number, onCommand: () => void, offCommand: () => void) {
+    setCommand(slot: number, onCommand: VoidFunction, offCommand: VoidFunction) {
         this.onCommands[slot] = onCommand;
         this.offCommands[slot] = offCommand;
     }

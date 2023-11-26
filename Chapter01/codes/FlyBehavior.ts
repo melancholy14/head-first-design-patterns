@@ -1,5 +1,5 @@
 interface FlyBehavior {
-    fly: () => void;
+    fly: VoidFunction;
 }
 
 export default FlyBehavior;
