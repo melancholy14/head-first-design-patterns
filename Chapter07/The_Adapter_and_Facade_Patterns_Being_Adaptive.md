@@ -2,33 +2,211 @@
 
 ## 적응시키기: 어댑터 패턴과 퍼사드 패턴
 
-<!-- 7. The Adapter and Facade Patterns: Being Adaptive
-* 		Adapters all around us
-* 		Object-oriented adapters
-* 		If it walks like a duck and quacks like a duck, then it must might be a duck turkey wrapped with a duck adapter...
-* 		Test drive the adapter
-* 		The Adapter Pattern explained
-    * 		Here’s how the Client uses the Adapter
-* 		Adapter Pattern defined
-* 		Object and class adapters
-* 		Real-world adapters
-    * 		Old-world Enumerators
-    * 		New-world Iterators
-    * 		And today...
-* 		Adapting an Enumeration to an Iterator
-    * 		Designing the Adapter
-    * 		Dealing with the remove() method
-    * 		Writing the EnumerationIterator adapter
-* 		And now for something different...
-* 		Home Sweet Home Theater
-* 		Watching a movie (the hard way)
-* 		Lights, Camera, Facade!
-* 		Constructing your home theater facade
-* 		Implementing the simplified interface
-* 		Time to watch a movie (the easy way)
-* 		Facade Pattern defined
-* 		The Principle of Least Knowledge
-* 		How NOT to Win Friends and Influence Objects
-    * 		Keeping your method calls in bounds...
-* 		The Facade and the Principle of Least Knowledge
-* 		Tools for your Design Toolbox -->
+### 객체지향 어댑터 알아보기
+
+어떤 인터페이스를 클라이언트에서 요구하는 형태로 적응시키는 역할\
+  i.e. 클라이언트로부터 요청을 받아서 새로운 업체에서 제공하는 클래스를 클라이언트가 받아들일 수 있는 형태의 요청으로 변환해 주는 중개인 역할
+
+#### 오리 어댑터 테스트
+
+[codes/DuckTestDrive.ts](./codes/DuckTestDrive.ts) 코드 참고
+
+### 어댑터 패턴 알아보기
+
+#### 클라이언트에서 어댑터를 사용하는 방법
+
+1. 클라이언트에서 타깃 인터페이스로 메소드를 호출해서 어댑터에 요청을 보냅니다.
+2. 어댑터는 어댑티 인터페이스로 그 요청을 어댑티에 관한 메소드 호출로 변환합니다.
+3. 클라이언트는 호출 결과를 받긴 하지만 중간에 어댑티가 있다는 사실을 모릅니다.
+
+### 어댑터 패턴의 정의
+
+```text
+// 어댑터 패턴 (Adapter Pattern)
+
+특정 클래스 인터페이스를 클라이언트에서 요구하는 다른 인터페이스로 변환합니다. 인터페이스가 호환되지 않아 같이 쓸 수 없었던 클래스를 사용할 수 있게 도와줍니다.
+```
+
+1. <<인터페이스>> Target: 어댑터에서 구현하는 인터페이스. 클라이언트는 타깃 인터페이스만 볼 수 있습니다.
+2. Adapter: 타깃을 구현한 클래스. 어댑티를 구성으로 가지고 있습니다.
+3. <<인터페이스>> Adaptee: 모든 요청은 어댑티에 위임됩니다.
+
+### 객체 어댑터와 클래스 어댑터
+
+- 클래스 어댑터: 타깃과 어댑티 모두 서브클래스로 만들어서 사용. 즉, 다중 상속이 가능한 언어에서 구현 가능.
+  - 비유: 타깃과 어댑티에게 각각 팔짱 끼고 있던 어댑터에게 클라이언트가 요청. 클라이언트는 타깃에게 요청하고 있다고 생각하지만 어댑터가 어댑티에게 대신 응답하라고 요청을 인터셉트함.
+- 객체 어댑터: 오리 어댑터 테스트에서 적용된 방식. 구성으로 어댑티에 요청을 전달.
+  - 비유: 어댑터는 어댑티가 타깃의 가면을 쓰도록 도와줌. 클라이언트는 가면을 쓴 어댑티에게 요청함.
+
+#### 뇌 단련 (1)
+
+객체 어댑터와 클래스 어댑터는 어댑티를 적응시킬 때 서로 다른 방법(구성 vs. 상속)을 사용합니다. 이런 구현상의 차이점은 어댑터의 유연성에 어떤 영향을 미칠까요?
+
+#### 나의 의견 (1)
+
+1. 구성 &rarr; 어댑티의 개수 제한이 코드상 없음
+2. 상속 &rarr; 어댑티의 개수가 언어에서 지원하는 상속 가능한 수에 종속됨
+
+### 실전 적용! 어댑터 패턴
+
+Java에서의 실제 클래스로 적용해봅시다.\
+자바에는 컬렉션 읽기 전용 인터페이스인 Enumeration이 있는데요. 최근에는 항목을 제거까지 할 수 있는 Iterator 인터페이스를 쓰기 시작했습니다.
+
+#### Enumeration을 Iterator에 적응시키기
+
+최근에는 Iterator를 많이 쓰기 시작하면서 Enumeration을 사용하는 구형 코드를 함께 적용해야 할 때가 있습니다. 이럴 때 EnumerationIterator를 써볼까요?
+
+```java
+public class EnumerationIterator implements Iterator<Object> {
+    Enumeration<T> enumeration;
+
+    public EnumerationIterator(Enumeration<?> enumeration) {
+        this.enumeration = enumeration;
+    }
+
+    public boolean hasNext() {
+        // Iterator의 hasNext() 메소드는 Enumeration의 hasMoreElements() 메소드로 연결됩니다.
+        return enumeration.hasMoreElements();
+    }
+
+    public Object next() {
+        // Iterator의 next() 메소드는 Enumeration의 nextElement() 메소드로 연결되죠.
+        return enumeration.nextElement();
+    }
+
+    public void remove() {
+        // Iterator의 remove 메소드는 지원되지 않으므로 포기하고 예외를 던지는 방법이 있습니다.
+        throw new UnsupportedOperationException();
+    }
+}
+```
+
+#### 뇌 단련 (2)
+
+AC 어댑터 중에는 인터페이스를 바꾸는 기능 외에도 서지 프로텍션으라든가 지시등이라든가 벨 소리 등의 추가 기능을 갖춘 것도 있습니다. 이런 기능을 구현할 때 어떤 패턴을 사용하면 좋을까요?
+
+#### 나의 의견 (2)
+
+어댑터 패턴을 감싼 데코레이터 패턴
+
+### 퍼사드 패턴 맛보기
+
+퍼사드 패턴. 이 패턴은 인터페이스를 단순하게 바꾸려고 인터페이스를 변경하죠. 하나 이상의 클래스 인터페이스를 깔끔하면서도 효과적인 퍼사드로 덮어 주거든요.
+
+#### 데코레이터 패턴 vs. 어댑터 패턴 vs. 퍼사드 패턴
+
+- 데코레이터 패턴: 인터페이스를 바꾸지 않고 기능만 **추가**
+- 어댑터 패턴: 하나의 인터페이스를 다른 인터페이스로 **변환**
+- 퍼사드 패턴: 인터페이스를 간단하게 **변경**
+
+### 홈시어터 만들기
+
+홈시어터를 구축해봅시다. 스트리밍 플레이어, 프로젝터, 자동 스크린, 서라운드 음향과 팝콘 기계까지 갖춘 시스템을 구성해두었는데요.\
+이제 편하게 영화를 즐기기 전에 아래와 같이 일을 더해야 합니다.
+
+```java
+// 팝콘 기계를 켜고 팝콘을 튀기기 시작합니다.
+popper.on();
+popper.pop();
+
+// 조명 밝기를 10%로 줄입니다.
+lights.dim(10);
+
+// 스크린을 내립니다.
+screen.down();
+
+// 프로젝터를 켜고 와이드 스크린 모드로 전환합니다.
+projector.on();
+projector.setInput(player);
+projector.wideScreenMode();
+
+// 앰프를 켜고 입력을 스크리밍 플레이어로 설정하고 서라운드 모드를 선택하고 볼륨을 5로 설정합니다.
+amp.on();
+amp.setDVD(player);
+amp.setSurroundSound();
+amp.setVolume(5);
+
+// 스트리밍 플레이어를 켜고, 마침내 영화를 재생합니다.
+player.on();
+player.play(movie);
+```
+
+영화가 끝나면 어떻게 꺼야 할까요? 위 작업을 역순으로 처리해야 하지 않을까요? 홈시어터 라디오를 들을 때는 어떨까요?
+
+### 퍼사드 작동 원리 알아보기
+
+쓰기 쉬운 인터페이스를 제공하는 퍼사드 클래스를 구현함으로써 복잡한 시스템을 훨씬 편리하게 사용할 수 있습니다.
+
+1. watchMovie()와 같은 메소드만 들어있는 HomeTheaterFacade 클래스를 만들어봅시다.
+2. 퍼사드 클래스는 홈시어터 구성 요소를 하나의 서브시스템으로 간주하고, watchMovie() 메소드는 서브시스템의 메소드를 호출해서 필요한 작업을 처리합니다.
+3. 클라이언트는 홈시어터 퍼사드의 watchMovie() 메소드만 호출하면 조명, 스트리밍 플레이어, 프로젝터, 앰프, 스크린, 팝콘 기계 등이 알아서 준비되므로 편리하게 영화를 즐길 수 있죠.
+4. 퍼사드를 쓰더라도 서브시스템에 여전히 접근할 수 있습니다. 서브시스템의 고급 기능의 필요하다면 언제든지 쓸 수 있죠.
+
+### 홈시어터 퍼사드 만들기
+
+[codes/HomeTheaterTestDrive.ts](./codes/HomeTheaterTestDrive.ts) 코드 참고
+
+### 퍼사드 패턴의 정의
+
+```text
+// 퍼사드 패턴 (Facade Pattern)
+
+서브시스템에 있는 일련의 인터페이스를 통합 인터페이스로 묶어 줍니다. 또한 고수준 인터페이스도 정의하므로 서브시스템을 더 편리하게 사용할 수 있습니다.
+```
+
+### 최소 지식 원칙
+
+```text
+// 디자인 원칙 (VII)
+진짜 절친에게만 이야기해야 한다.
+
+시스템을 디자인할 때 어떤 객체든 그 객체와 상호작용하는 클래스의 개수와 상호작용 방식에 주의를 기울여야 한다.
+```
+
+#### 어떻게 하면 여러 객체와 친구가 되는 것을 피할 수 있을까요?
+
+최소 지식 원칙은 친구를 만들지 않는 4개의 가이드라인을 제시합니다.
+
+1. 객체 자체
+2. 메소드에 매개변수로 전달된 객체
+3. 메소드를 생성하거나 인스턴스를 만든 객체
+4. 객체에 속하는 구성 요소
+
+##### AS-IS. 원칙을 따르지 않는 경우
+
+```java
+public float getTemp() {
+    Thermometer thermometer = station.getThermometer();
+    return thermometer.getTemperature();
+}
+```
+
+##### TO-BE. 원칙을 따르는 경우
+
+```java
+public float getTemp() {
+    // thermometer에게 요청을 전달하는 메소드를 station에 추가
+    return station.getTemperature();
+}
+```
+
+#### 데메테르의 법칙 vs. 최소 지식 원칙
+
+[데메테르의 법칙](https://en.wikipedia.org/wiki/Law_of_Demeter): 모듈은 자신이 조작하는 객체의 속사정을 몰라야 한다는 법칙\
+즉, 데메테르의 법칙과 최소 지식 원칙은 완전히 똑같은 말입니다.
+
+### 퍼사드 패턴과 최소 지식 원칙
+
+퍼사드 클래스가 클라이언트 대신 모든 서브시스템 구성 요소를 관리해 주기 때문에 클라이언트는 퍼사드 클래스 친구 하나만 있으면 됩니다!
+
+### 핵심 정리
+
+1. 기존 클래스를 사용하려고 하는데 인터페이스가 맞지 않으면 어댑터를 쓰면 됩니다.
+2. 큰 인터페이스와 여러 인터페이스를 단순하게 바꾸거나 통합해야 하면 퍼사드를 쓰면 됩니다.
+3. 어댑터는 인터페이스를 클라이언트에서 원하는 인터페이스로 바꾸는 역할을 합니다.
+4. 퍼사드는 클라이언트를 복잡한 서브시스템과 분리하는 역할을 합니다.
+5. 어댑터를 구현할 때는 타깃 인터페이스의 크기와 구조에 따라 코딩해야할 분량이 결정됩니다.
+6. 퍼사드 패턴에서는 서브시스템으로 퍼사드를 만들고 진짜 작업은 서브클래스에게 맡깁니다.
+7. 어댑터 패턴에는 객체 어댑터 패턴과 클래스 어댑터 패턴이 있습니다. 클래스 어댑터를 쓰려면 다중 상속이 가능해야 합니다.
+8. 한 서브시스템에 퍼사드를 여러 개 만들어도 됩니다.
+9. 어댑터는 객체를 감싸서 인터페이스를 바꾸는 용도로, 데코레이터는 객체를 감싸서 새로운 행동을 추가하는 용도로, 퍼사드는 일련의 객체를 감싸서 단순하게 만드는 용도로 쓰입니다.
