@@ -11,6 +11,10 @@ class LightOnCommand implements Command {
     execute() {
         this.light?.on();
     }
+
+    undo() {
+        this.light?.off();   
+    }
 }
 
 export default LightOnCommand;

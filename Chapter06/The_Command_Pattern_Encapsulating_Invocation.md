@@ -44,9 +44,21 @@
 
 #### 람다 표현식을 써서 고친 코드
 
+자바의 람다 표현식을 쓰면 구상 커맨드 객체의 인스턴스를 생성하는 대신 함수 객체를 사용할 수 있습니다.
+
 [codes/RemoteLoaderWithLambda.ts](./codes/RemoteLoaderWithLambda.ts) 코드 참고
 
 (Lambda 라기보단.. Arrow function으로 흉내내봤지만 커맨드 객체를 분리한 의미가 사라지는 것 같음..)
+
+### 작업 취소 기능 추가하기
+
+커맨드 인터페이스에 `undo()` 메소드가 있어야 합니다.
+
+[codes/RemoteControlWithUndo.ts](./codes/RemoteControlWithUndo.ts) 코드 참고
+
+선풍기와 같이 속도를 선택할 수 있는 경우는 어떨까요? 이전 상태를 기억해야하는 케이스는 간단한 상태를 저장하면 됩니다.
+
+[codes/CeilingFanHighCommand.ts](./codes/CeilingFanHighCommand.ts) 코드 참고
 
 <!-- 6. The Command Pattern: Encapsulating Invocation
 
