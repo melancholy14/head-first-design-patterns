@@ -11,6 +11,10 @@ class LightOffCommand implements Command {
     execute() {
         this.light?.off();
     }
+
+    undo() {
+        this.light?.on();
+    }
 }
 
 export default LightOffCommand;

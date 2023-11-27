@@ -1,16 +1,16 @@
 class Light {
-    private space?: string;
+    private location?: string;
 
     constructor(space?: string) {
-        this.space = space;
+        this.location = space;
     }
 
     on() {
-        console.log(`${this.space ? `${this.space} ` : ''}조명이 켜졌습니다`);
+        console.log(`${this.location ? `${this.location} ` : ''}조명이 켜졌습니다`);
     }
 
     off() {
-        console.log(`${this.space ? `${this.space} ` : ''}조명이 꺼졌습니다`);
+        console.log(`${this.location ? `${this.location} ` : ''}조명이 꺼졌습니다`);
     }
 }
 

@@ -11,6 +11,10 @@ class StereoOffCommand implements Command {
     execute() {
         this.stereo?.off();
     }
+
+    undo() {
+        this.stereo?.on();   
+    }
 }
 
 export default StereoOffCommand;

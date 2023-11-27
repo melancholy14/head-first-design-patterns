@@ -11,6 +11,10 @@ class GarageDoorOpenCommand implements Command {
     execute() {
         this.garageDoor?.up();
     }
+
+    undo() {
+        this.garageDoor?.down();   
+    }
 }
 
 export default GarageDoorOpenCommand;

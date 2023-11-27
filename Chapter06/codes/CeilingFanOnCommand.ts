@@ -9,8 +9,12 @@ class CeilingFanOnCommand implements Command {
     }
 
     execute() {
-        this.ceilingFan?.on();
+        this.ceilingFan?.high();
     };
+
+    undo() {
+        this.ceilingFan?.off();
+    }
 }
 
 export default CeilingFanOnCommand;
