@@ -1,5 +1,5 @@
 interface Observer {
-    update: () => void;
+    update: VoidFunction;
 }
 
 export default Observer;

@@ -1,5 +1,5 @@
 interface QuackBehavior {
-    quack: () => void;
+    quack: VoidFunction;
 }
 
 export default QuackBehavior;

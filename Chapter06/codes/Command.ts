@@ -1,6 +1,6 @@
 interface Command {
-    execute: () => void;
-    undo: () => void;
+    execute: VoidFunction;
+    undo: VoidFunction;
 }
 
 export default Command;
