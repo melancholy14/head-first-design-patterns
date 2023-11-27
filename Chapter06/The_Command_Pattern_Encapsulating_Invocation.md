@@ -60,23 +60,29 @@
 
 [codes/CeilingFanHighCommand.ts](./codes/CeilingFanHighCommand.ts) 코드 참고
 
-<!-- 6. The Command Pattern: Encapsulating Invocation
+### 여러 동작을 한 번에 처리하기
 
+여러 가지 커맨드를 한 번에 실행할 수 있는 커맨드는 어떨까요?
 
-* 		Time to QA that Undo button!
-* 		Using state to implement Undo
-* 		Adding Undo to the CeilingFan commands
-* 		Get ready to test the ceiling fan
-* 		Testing the ceiling fan...
-* 		Every remote needs a Party Mode!
-* 		Using a macro command
-* 		The Command Pattern means lots of command classes
-    * 		Do we really need all these command classes?
-* 		Simplifying the Remote Control with lambda expressions
-* 		Simplifying even more with method references
-    * 		What if we need to do more than one thing in our lambda expression?
-* 		Test the remote control with lambda expressions
-    * 		Check out the results of all those lambda expression commands...
-* 		More uses of the Command Pattern: queuing requests
-* 		More uses of the Command Pattern: logging requests
-* 		Tools for your Design Toolbox -->
+[codes/RemoteLoaderWithMacro.ts](./codes/RemoteLoaderWithMacro.ts) 코드 참고
+
+### 커맨드 패턴 활용하기
+
+1. 작업 큐
+  - 큐 한 쪽 끝은 커맨드를 추가할 수 있도록 되어 있고, 다른 쪽 끝에는 커맨드를 처리하는 스레드들이 대기하고 있습니다.
+  - 각 스레드는 우선 execute() 메소드를 호출하고 호출이 완료되면 커맨드 객체를 버리고 새로운 커맨드 객체를 가져옵니다.
+2. 로깅하기
+  - 모든 행동을 기억해두었다가 애플리케이션이 다운되었을 때 그 행동을 다시 호출해서 복구할 수 있어야 할 때.
+  - 커맨드 객체에 store(), load() 메소드 추가하여 구현할 수 있습니다.
+  - 각 커맨드가 실행될 때마다 디스크에 내역 저장 &rarr; 다운되었다면? &rarr; 디스크에 저장된 내역의 객체를 다시 로딩해서 순서대로 작업을 다시 처리
+
+### 핵심 정리
+
+- 커맨드 패턴을 사용하면 요청하는 객체와 요청을 수행하는 객체를 분리할 수 있습니다.
+- 이렇게 분리하는 과정의 중심에는 커맨드 객체가 있으며, 이 객체가 행동이 들어있는 리시버를 캡슐화합니다.
+- 인보커는 무언가 요청할 때 커맨드 객체의 execute() 메소드를 호출하면 됩니다.
+- 커맨드는 인보커를 매개변수화할 수 있습니다. 실행 중에 동적으로 매개변수화를 설정할 수도 있습니다.
+- execute() 메소드가 마지막으로 호출되기 전의 상태로 되돌리는 작업 취소 메소드를 구현하면 커맨드 패턴으로 작업 취소 기능을 구현할 수도 있습니다.
+- 매크로 커맨드는 커맨드를 확장해서 여러 개의 커맨드를 한 번에 호출할 수 있게 해주는 가장 간편한 방법입니다. 매크로 커맨드도 어렵지 않게 작업 취소 기능을 구현할 수 있습니다.
+- 프로그래밍을 하다 보면 요청을 스스로 처리하는 '스마트' 커맨드 객체를 사용하는 경우도 종종 있습니다.
+- 커맨드 패턴을 활용해서 로그 및 트랜잭션 시스템을 구현할 수 있습니다.

@@ -40,7 +40,7 @@ class RemoteControl {
             string += `[slot ${index}] ${this.onCommands[index].constructor.name} ${this.offCommands[index].constructor.name}\n`;
         });
 
-        string += '-----------------';
+        string += `[undo] ${this.undoCommand?.constructor.name}\n`;
 
         return string;
     }
