@@ -1,5 +1,5 @@
 interface DisplayElement {
-    display: () => void;
+    display: VoidFunction;
 }
 
 export default DisplayElement;
