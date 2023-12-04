@@ -9,7 +9,7 @@
 현재: Beverage라는 추상 클래스를 만들고 모든 음료는 이 클래스의 서브클래스가 됩니다. 하지만 고객은 커피를 주문할 때 우유나 두유 등 옵션을 추가하죠. 결국, 클래스가 말 그대로 "폭발"...
 
 - 추상 클래스: Beverage
-  - 추상메소드: cost() -> 각 서브클래스에서 cost()를 재정의
+  - 추상메소드: cost() &rarr; 각 서브클래스에서 cost()를 재정의
 - 서브 클래스: HouseBlend, HouseBlendWithSteamedMilk, HouseBlendWithSteamedMilkAndMocha, HouseBlendWithSteamedMilkAndWhip, HouseBlendWithSoy, HouseBlendWithSoyAndMocha, etc ...
 
 #### 뇌 단련
@@ -160,7 +160,7 @@ public abstract class Beverage {
 
 [java.io](https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html)는 데코레이터 패턴을 바탕으로 만들어졌습니다. 자세한 내용은 [여기](https://codingnotes.tistory.com/238?category=968843#%EB%-D%B-%EC%BD%--%EB%A-%--%EC%-D%B-%ED%--%B-%EC%-D%--%--%EC%A-%--%EC%-A%A-%EB%--%-C%--%EC%--%--%--%-A%--%EC%-E%--%EB%B-%--%--I%-FO)를 참고해주세요.
 
-### 핵심 정리
+## 핵심 정리
 
 - 디자인의 유연성 면에서 보면 상속으로 확장하는 일은 별로 좋은 선택이 아닙니다.
 - 기존 코드 수정 없이 행동을 확장해야 하는 상황도 있습니다.
