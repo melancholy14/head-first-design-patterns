@@ -13,10 +13,8 @@
     - 2번 디스플레이: 기상 통계
     - 3번 디스플레이: 기상 예보
 
-주어진 WeatherData 클래스는 다음과 같으며 구현 목표는
-
-"`measurementsChanged()`가 호출될 때마다 WeatherData에서 디스플레이를 업데이트해야한다."
-
+주어진 WeatherData 클래스는 다음과 같으며 구현 목표는\
+"`measurementsChanged()`가 호출될 때마다 WeatherData에서 디스플레이를 업데이트해야한다."\
 입니다.
 
 ```java
