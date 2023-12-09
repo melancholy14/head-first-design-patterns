@@ -101,13 +101,30 @@ createPizza() 메소드를 PizzaStore에 넣고 추상 메소드로 선언해보
 실행 중에 서브클래스에서 어떤 클래스의 인스턴스를 만들지를 결정해서가 아니라, 생산자 클래스가 실제 생산될 제품을 전혀 모르는 상태로 만들어지기 때문\
 &rarr; 사용하는 서브클래스에 따라 생산되는 객체 인스턴스가 결정되기 때문
 
+### 의존성 뒤집기 원칙 (Dependency Inversion Principle)
+
+```text
+// 디자인 원칙 (VI)
+추상화된 것에 의존하게 만들고 구상 클래스에 의존하지 않게 만든다.
+
+고수준 구성 요소가 저수준 요소에 의존하면 안 되며, 항상 추상화에 의존하게 만들어야한다는 의미
+```
+
+#### `뒤집기(inversion)`라는 말이 들어있는 이유
+
+객체지향 디자인을 할 때 일반적으로 생각하는 방법과는 반대로 뒤집어서 생각해야 하기 때문.
+
+### 의존성 뒤집기 원칙을 지키는 방법
+
+1. 변수에 구상 클래스의 레퍼런스를 저장하지 맙시다.
+    - 팩토리를 써서 구상 클래스의 레퍼런스를 변수에 저장하는 일을 미리 방지합시다.
+2. 구상 클래스에서 유도된 클래스를 만들지 맙시다.
+    - 인터페이스나 추상 클래스처럼 추상화된 것으로부터 클래스를 만들어야 합니다.
+3. 베이스 클래스에 이미 구현되어 있는 메소드를 오버라이드하지 맙시다.
+    - 베이스 클래스에서 메소드를 정의할 때는 모든 서브클래스에서 공유할 수 있는 것만 정의해야 합니다.
+
+
 <!-- 
-    •            A very dependent PizzaStore
-    •            Looking at object dependencies
-    •            The Dependency Inversion Principle
-    •            Applying the Principle
-    •            Inverting your thinking...
-    •            A few guidelines to help you follow the Principle...
     •            Meanwhile, back at the PizzaStore...
     •            Ensuring consistency in your ingredients
     •            Families of ingredients...
