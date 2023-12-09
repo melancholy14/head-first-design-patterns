@@ -123,21 +123,62 @@ createPizza() 메소드를 PizzaStore에 넣고 추상 메소드로 선언해보
 3. 베이스 클래스에 이미 구현되어 있는 메소드를 오버라이드하지 맙시다.
     - 베이스 클래스에서 메소드를 정의할 때는 모든 서브클래스에서 공유할 수 있는 것만 정의해야 합니다.
 
+### 원재료 팩토리 만들기
 
-<!-- 
-    •            Meanwhile, back at the PizzaStore...
-    •            Ensuring consistency in your ingredients
-    •            Families of ingredients...
-    •            Building the ingredient factories
-    •            Building the New York ingredient factory
-    •            Reworking the pizzas...
-    •            Reworking the pizzas, continued...
-    •            Revisiting our pizza stores
-    •            What have we done?
-    •            More pizza for Ethan and Joel...
-    •            From here things change, because we are using an ingredient factory
-    •            Abstract Factory Pattern defined
-    •            Factory Method and Abstract Factory compared
-    •            Tools for your Design Toolbox
-    •            A very dependent PizzaStore
--->
+#### 최첨단 피자가게에 문제가 생겼습니다
+
+최첨단 피자 가게가 성공을 이룬 가운데, 몇몇 지점에서 자잘한 재료를 더 싼 재료로 바꿔서 마진을 높이고 있다고 합니다. 이런 일이 계속 되면 브랜드 이미지에 큰 타격이 올 수도 있기에 뭔가 조치를 취해야 합니다.\
+원재료에 대한 관리가 필요한 시점인데요. 지역별로 다른 재료를 사용해야 하기에 지역과 더불어 원재료군(families of ingredients)를 처리할 방법을 생각해봐야 합니다.
+
+#### 원재료를 생산하는 팩토리
+
+재료 관리를 위해 원재료군(반죽, 소스, 치즈 등)이 있는 팩토리에서 각각의 원재료를 생산합니다. 그리고 지역별로 각각의 원재료가 생산이 되죠.\
+각각의 재료는 지역별로 원재료가 나뉘기 때문에 뉴욕식 피자 원재료 팩토리가 만들어지고 피자 구현 클래스에서는 원재료 팩토리를 받으면 됩니다.
+
+#### 추상 팩토리 등장
+
+원재료 군을 생산하는 팩토리를 생산해서 문제를 해결했습니다. **추상 팩토리** 란 제품군을 생성하는 인터페이스로, 추상 팩토리를 사용하면 코드와 제품을 생산하는 팩토리를 분리할 수 있습니다.
+
+[codes/abstract-factory](./codes/abstract-factory) 폴더 안의 코드 참고
+
+### 추상 팩토리 패턴의 정의
+
+```text
+// 추상 팩토리 패턴 (Abstract Factory Pattern)
+구상 클래스에 의존하지 않고도 서로 연관되거나 의존적인 객체로 이루어진 제품군을 생산하는 인터페이스를 제공합니다. 구상 클래스는 서브클래스에서 만듭니다.
+```
+
+1. Client: 클라이언트를 만들 때는 추상 팩토리를 바탕으로 만듭니다.
+    - 예시: NYPizzaStore
+2. <<인터페이스>> AbstractFactory: 모든 구상 팩토리에서 구현해야 하는 인터페이스입니다.
+    - 예시: PizzaIngredientFactory
+3. ConcreteFactory: AbstractFactory를 구현합니다. 구상 팩토리는 서로 다른 제품군을 구현하며 클라이언트에서는 제품 객체를 직접 만들 필요가 없죠.
+    - 예시: NYPizzaIngredientFactory
+4. <<인터페이스>> AbstractProduct: 제품군 추상 클래스
+    - 예시: Dough, Sauce, Cheese
+5. ConcreteProduct: 각 구상 팩토리에서 필요한 제품을 모두 만들 수 있습니다.
+    - 예시: ThinCrustDough, MarinaraSauce, ReggianoCheese
+
+### 팩토리 메소드 패턴 vs. 추상 팩토리 패턴
+
+#### 공통점
+
+- 어플리케이션을 특정 구현으로부터 분리하는 일 전문
+- 객체 생성을 캡슐화해서 어플리케이션의 결합을 느슨하게 만들고, 특정 구현에 덜 의존하도록 만들 수 있다.
+
+#### 차이점
+
+- 팩토리 메소드 패턴: 상속으로 클래스를 확장하여 객체 생성. 서브 클래스에서 만드는 구상 형식을 활용하는 추상 생산자에서 코드를 구현. 한 가지 제품만 생성이 가능하다는 단점 존재.
+- 추상 팩토리 패턴: 객체 구성으로 오버라이드하여 객체 생성. 일련의 연관된 제품을 하나로 묶을 수 있다는 장점이 있지만 새로운 제품을 추가하려면 인터페이스를 바꿔야 하는 단점 존재.
+
+## 핵심 정리
+
+- 팩토리를 쓰면 객체 생성을 캡슐화할 수 있습니다.
+- 간단한 팩토리는 엄밀하게 말해서 디자인 패턴을 아니지만, 클라이언트와 구상 클래스를 분리하는 간단한 기법으로 활용할 수 있습니다.
+- 팩토리 메소드 패턴은 상속을 활용합니다. 객체 생성을 서브클래스에게 맡기죠. 서브클래스는 팩토리 메소드를 구현해서 객체를 생성합니다.
+- 추상 팩토리 패턴은 객체 구성을 활용합니다. 팩토리 인터페이스에서 선언한 메소드에서 객체 생성이 구현되죠.
+- 모든 팩토리 패턴은 애플리케이션의 구상 클래스 의존성을 줄여줌으로써 느슨한 결합을 도와줍니다.
+- 팩토리 메소드 패턴은 특정 클래스에서 인스턴스를 만드는 일을 서브틀래스에게 넘깁니다.
+- 추상 팩토리 패턴은 구상 클래스에 직접 의존하지 않고도 서로 관련된 객체로 이루어진 제품군을 만드는 용도로 쓰입니다.
+- 의존성 뒤집기 원칙을 따르면 구상 형식 의존을 피하고 추상화를 지향할 수 있습니다.
+- 팩토리는 구상 클래스가 아닌 추상 클래스와 인터페이스에 맞춰서 코딩할 수 있게 해 주는 강력한 기법입니다.
