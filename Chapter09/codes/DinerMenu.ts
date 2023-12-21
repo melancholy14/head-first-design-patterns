@@ -3,7 +3,7 @@ import MenuItem from "./MenuItem";
 class DinerMenu {
     MAX_ITEMS: number = 6;
     numberOfItems: number = 0;
-    menuItems: MenuItem[] = [];
+    menuItems: MenuItem[] | null = null;
 
     constructor() {
         this.menuItems = [];
@@ -22,7 +22,7 @@ class DinerMenu {
 
         if (this.numberOfItems >= this.MAX_ITEMS) {
             console.error('죄송합니다. 메뉴가 꽉 찼습니다. 더 이상 추가할 수 없습니다.');
-        } else {
+        } else if (this.menuItems) {
             this.menuItems[this.numberOfItems] = menuItem;
             this.numberOfItems += 1;
         }
